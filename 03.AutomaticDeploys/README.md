@@ -47,8 +47,8 @@ Un ejemplo de fichero de configuración podría ser este:
     }
 }
 ```
-## secrets.json
-Si se crea un fichero secrets.json se incluirán los valores en el fichero .json, debe tener el mismo formato que el fichero
+## .env
+Si se crea un fichero .env se incluirán los valores en el fichero .json, debe tener el mismo formato que el fichero
 de configuración.
 
 ```json
