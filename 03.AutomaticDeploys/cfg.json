@@ -18,11 +18,16 @@
                 }
             ],
             "steps": [
-                "docker load /tmp/mrproverb.tar",
                 "docker kill mrproverb",
                 "docker container rm mrproverb",
+                "docker container ps",
+                "docker image rm mrproverb",
+                "docker image ls",
+                "docker load --input /tmp/mrproverb.tar",
                 "docker run -p 5555:5555 --name mrproverb -d mrproverb",
-                "rm /tmp/mrproverb.tar"
+                "rm /tmp/mrproverb.tar",
+                "docker image ls",
+                "docker container ps"
             ]
         },
         "after_install": [

@@ -20,8 +20,10 @@ def dict_merge(dct, merge_dct):
 
 def run_remote_step(client, command):
     client.invoke_shell()
-    stdin, stdout, stderr = client.exec_command(command) 
-    print(f"stdin: {stdin}, stdout: {stdout}, stderr: {stderr}")
+    _, stdout, _ = client.exec_command(command) 
+    print(f"> {command}")
+    for output in stdout.readlines():
+        print(f"    {output}")
 
 
 def copy_remote(client, resources):
@@ -31,7 +33,7 @@ def copy_remote(client, resources):
         ftp_client.put(
             resource["src"],
             resource["dest"],
-            callback=lambda current, total: print(f"\r {filename} transfered: {(current/total) * 100:2f}", end=""))
+            callback=lambda current, total: print(f"\r {filename} transfered: {(current/total) * 100:2f} %", end=""))
     ftp_client.close()
 
 def read_cfg():
@@ -54,7 +56,7 @@ def deploy_app(name):
     cfg = apps[name] 
 
     for step in cfg["before_install"]:
-        print(step)
+        print(f"> {step}")
         subprocess.call(step, shell=True)
     
     client = paramiko.SSHClient()
@@ -69,7 +71,7 @@ def deploy_app(name):
         run_remote_step(client, step)
          
     for step in cfg["after_install"]:
-        print(step)
+        print(f"> {step}")
         subprocess.call(step, shell=True)
 
 if __name__ == '__main__':
