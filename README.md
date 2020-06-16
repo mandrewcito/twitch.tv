@@ -1,2 +1,4 @@
 # twitch.tv
-Public samples of code 
+
+Código de los directos de twitch, un poco ordenado -o no- después del directo.
+
